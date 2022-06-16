@@ -24,12 +24,10 @@ app.get('/delete/:id', (req, res)=>{
 	mongoClient.connect("mongodb://panaderia2:GP4muk8NOikR9rDs6gIdVIceTRsJXUdYeW8SR2BZUNLx5cFUdJALqJnLtm9sgOxT4LKspSqDmqaAJyx0xwpeOw==@panaderia2.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@panaderia2@", function (err, db) {
 		var dbo = db.db("panaderiaDB");
 		dbo.collection("panes").deleteOne(JSON.parse(`{"id":${idPan}}`),(err, obj)=>{
-			if (err){ res.send("{status: 1}"); throw err;} 
-			if (err){ res.send('{"status": "1"}'); throw err;} 
+			if (err){ res.send(JSON.parse('{"status": "1"}')); throw err;} 
 			console.log("1 document deleted");
 			console.log(obj);
-			res.send("{status:1}")
-			res.send('{"status":"0"}');
+			res.send(JSON.parse('{"status":"0"}'));
 			db.close();
 		});
 
