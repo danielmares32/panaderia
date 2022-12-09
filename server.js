@@ -8,7 +8,7 @@ var mongoClient = require("mongodb").MongoClient;
 app.use('/img', express.static('img'));
 app.get('/', (req, res)=>{
 	mongoClient.connect("mongodb://panaderia:kBz8uW18Ek9Mw3LhSF3EL6QRQZKGk1euSDYY2YbvcL50UEr1ULi2SudzarLNTPNpcQ5CNXfexsLXACDbOEvoWA%3D%3D@panaderia.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@panaderia@", function (err, db) {
-		var dbo = db.db("panaderia");
+		var dbo = db.db("panes");
 		dbo.collection("panes").find().toArray(function(err, result) {
 			if (err) throw err;
 			console.log(result);
@@ -22,7 +22,7 @@ app.get('/delete/:id', (req, res)=>{
 	const idPan = req.params.id;
 	console.log(idPan);
 	mongoClient.connect("mongodb://panaderia:kBz8uW18Ek9Mw3LhSF3EL6QRQZKGk1euSDYY2YbvcL50UEr1ULi2SudzarLNTPNpcQ5CNXfexsLXACDbOEvoWA%3D%3D@panaderia.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@panaderia@", function (err, db) {
-		var dbo = db.db("panaderia");
+		var dbo = db.db("panes");
 		dbo.collection("panes").deleteOne(JSON.parse(`{"id":${idPan}}`),(err, obj)=>{
 			if (err){ res.send(JSON.parse('{"status": "1"}')); throw err;} 
 			console.log("1 document deleted");
