@@ -4,6 +4,7 @@ const path = require('path');
 const app = express();
 const port = 8080;
 var mongoClient = require("mongodb").MongoClient;
+app.options('*', cors())
 //app.use(express.static(__dirname + '/img'));
 app.use('/img', express.static('img'));
 app.get('/', (req, res)=>{
