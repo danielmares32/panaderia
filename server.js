@@ -4,10 +4,15 @@ const path = require('path');
 const app = express();
 const port = 8080;
 var mongoClient = require("mongodb").MongoClient;
-app.options('*', cors())
+
+let corsOptions = {
+    origin: [ '*', 'http://localhost:19006' ]
+};
+
+//app.options('*', cors())
 //app.use(express.static(__dirname + '/img'));
 app.use('/img', express.static('img'));
-app.get('/', (req, res)=>{
+app.get('/', cors(corsOptions),(req, res)=>{
 	mongoClient.connect("mongodb://panaderia:kBz8uW18Ek9Mw3LhSF3EL6QRQZKGk1euSDYY2YbvcL50UEr1ULi2SudzarLNTPNpcQ5CNXfexsLXACDbOEvoWA%3D%3D@panaderia.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@panaderia@", function (err, db) {
 		var dbo = db.db("panes");
 		dbo.collection("panes").find().toArray(function(err, result) {
@@ -19,7 +24,7 @@ app.get('/', (req, res)=>{
 		
 	});
 })
-app.get('/delete/:id', (req, res)=>{
+app.get('/delete/:id', cors(corsOptions),(req, res)=>{
 	const idPan = req.params.id;
 	console.log(idPan);
 	mongoClient.connect("mongodb://panaderia:kBz8uW18Ek9Mw3LhSF3EL6QRQZKGk1euSDYY2YbvcL50UEr1ULi2SudzarLNTPNpcQ5CNXfexsLXACDbOEvoWA%3D%3D@panaderia.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@panaderia@", function (err, db) {
